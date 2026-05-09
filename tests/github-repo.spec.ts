@@ -7,27 +7,27 @@ gateway: "openrouter"
 }
 });
 
-test("GitHub: Search and browse a public repo", async ({ page }) => {
+test("GitHub: Search, browse repo, and verify structure", async ({ page }) => {
 test.setTimeout(180_000);
-
-console.log("Starting GitHub test...");
 
 await runSteps({
 page,
-userFlow: "Search for a repo and browse its README",
+userFlow: "Search for a repo, browse its contents, and verify README",
 steps: [
 { description: "Navigate to https://github.com" },
 { description: "Type 'passmark bug0inc' in the search bar" },
 { description: "Press Enter to submit the search" },
 { description: "Click the 'bug0inc/passmark' repository result" },
-{ description: "Verify the README.md content is visible on the page" },
+{ description: "Wait for the repository page to fully load" },
+{ description: "Scroll down to view the README content" },
 ],
 assertions: [
-{ assertion: "The page shows the bug0inc/passmark repository with README content visible" }
+{ assertion: "The page title or header shows bug0inc/passmark" },
+{ assertion: "The README.md file content is visible on the page" },
+{ assertion: "The repository shows source code files like src/ or package.json" },
+{ assertion: "The repository has a description mentioning AI or regression testing" },
 ],
 test,
 expect,
 });
-
-console.log("GitHub test completed.");
 });

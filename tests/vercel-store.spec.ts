@@ -7,28 +7,28 @@ gateway: "openrouter"
 }
 });
 
-test("Vercel Store: Add product to cart", async ({ page }) => {
+test("Vercel Store: Full e-commerce cart flow", async ({ page }) => {
 test.setTimeout(180_000);
-
-console.log("Starting Vercel Store test...");
 
 await runSteps({
 page,
-userFlow: "Add product to cart on Vercel demo store",
+userFlow: "Browse products, select options, and add to cart",
 steps: [
 { description: "Navigate to https://demo.vercel.store" },
+{ description: "Verify the homepage loads with product listings visible" },
 { description: "Click Acme Circles T-Shirt" },
 { description: "Select color", data: { value: "White" } },
 { description: "Select size", data: { value: "S" } },
 { description: "Add to cart", waitUntil: "My Cart is visible" },
 ],
 assertions: [
-{ assertion: "My Cart is visible with Acme Circles T-Shirt" }
+{ assertion: "The My Cart sidebar or panel is visible on the page" },
+{ assertion: "Acme Circles T-Shirt appears as an item in the cart" },
+{ assertion: "The cart shows the correct color White and size S for the product" },
+{ assertion: "A checkout or continue shopping option is available" },
 ],
 test,
 expect,
 });
-
-console.log("Vercel Store test completed.");
 });
 
